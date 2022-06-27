@@ -27,3 +27,15 @@ $ npm run start
 # desenvolvimento:
 $ npm run start:dev
 ```
+### Como acessar o projeto:
+
+acessando no navegador ou em algum programa como Postman ou Insomnia:
+
+```bash
+  http://localhost:8000
+```
+ou para acessar a documentação:
+
+```bash
+  https://localhost:8000/docs
+```
