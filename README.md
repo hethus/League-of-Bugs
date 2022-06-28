@@ -32,10 +32,10 @@ $ npm run start:dev
 acessando no navegador ou em algum programa como Postman ou Insomnia:
 
 ```bash
-  http://localhost:8000
+  localhost:8000
 ```
 ou para acessar a documentação:
 
 ```bash
-  https://localhost:8000/docs
+  localhost:8000/docs
 ```

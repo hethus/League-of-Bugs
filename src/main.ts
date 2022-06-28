@@ -13,6 +13,8 @@ async function bootstrap() {
     .setDescription(
       'League of Bugs (LoB) é um projeto desenvolvido para o modulo 4 da Blue com base no jogo League of Legends!',
     )
+    .addTag('status')
+    .addTag('users')
     .setVersion('1.0.0')
     .build();
 
