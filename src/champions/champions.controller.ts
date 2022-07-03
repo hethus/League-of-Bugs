@@ -38,7 +38,7 @@ export class ChampionsController {
   @ApiOperation({
     summary: 'Find champion by id',
   })
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<Champion> {
     return this.championsService.findOne(id);
   }
 

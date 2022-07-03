@@ -16,8 +16,8 @@ export class ChampionsService {
     return this.prisma.champion.findMany();
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} champion`;
+  findOne(id: string): Promise<Champion> {
+    return this.prisma.champion.findUnique({ where: { id } });
   }
 
   update(id: string, dto: UpdateChampionDto) {
