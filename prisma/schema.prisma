@@ -15,6 +15,22 @@ model User {
   name        String
   email       String @unique
   password    String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("user")
+}
+
+model Champion {
+  id          String @id @default(uuid())
+  name        String @unique
+  description String
+  skills       String
+  imageUrl String
+  difficulty  String
+  youTubeUrl String
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("champion")
 }
