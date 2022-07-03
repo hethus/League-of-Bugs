@@ -22,7 +22,7 @@ export class ChampionsController {
   @ApiOperation({
     summary: 'Create a new champion',
   })
-  create(@Body() dto: CreateChampionDto): Promise<Champion> {
+  create(@Body() dto: CreateChampionDto): Promise<Champion | void> {
     return this.championsService.create(dto);
   }
 
@@ -49,7 +49,7 @@ export class ChampionsController {
   update(
     @Param('id') id: string,
     @Body() dto: UpdateChampionDto,
-  ): Promise<Champion> {
+  ): Promise<Champion | void> {
     return this.championsService.update(id, dto);
   }
 
