@@ -24,6 +24,8 @@ export class UsersService {
       name: dto.name,
       email: dto.email,
       password: hashedPassword,
+      cpf: dto.cpf,
+      isAdmin: dto.isAdmin,
     };
 
     return this.prisma.user.create({ data });

@@ -11,6 +11,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ChampionsService } from './champions.service';
 import { CreateChampionDto } from './dto/create-champion.dto';
 import { UpdateChampionDto } from './dto/update-champion.dto';
+import { Champion } from './entities/champion.entity';
 
 @ApiTags('Champions')
 @Controller('champions')
@@ -29,7 +30,7 @@ export class ChampionsController {
   @ApiOperation({
     summary: 'Find all champions',
   })
-  findAll() {
+  findAll(): Promise<Champion[]> {
     return this.championsService.findAll();
   }
 
