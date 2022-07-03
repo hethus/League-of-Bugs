@@ -20,8 +20,8 @@ export class ChampionsService {
     return this.prisma.champion.findUnique({ where: { id } });
   }
 
-  update(id: string, dto: UpdateChampionDto) {
-    return `This action updates a #${id} champion`;
+  update(id: string, dto: UpdateChampionDto): Promise<Champion> {
+    return this.prisma.champion.update({ where: { id }, data: dto });
   }
 
   remove(id: string) {

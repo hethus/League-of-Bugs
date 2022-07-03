@@ -46,7 +46,10 @@ export class ChampionsController {
   @ApiOperation({
     summary: 'Update champion',
   })
-  update(@Param('id') id: string, @Body() dto: UpdateChampionDto) {
+  update(
+    @Param('id') id: string,
+    @Body() dto: UpdateChampionDto,
+  ): Promise<Champion> {
     return this.championsService.update(id, dto);
   }
 
