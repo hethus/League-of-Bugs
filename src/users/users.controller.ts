@@ -18,22 +18,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Get()
-  @ApiOperation({
-    summary: 'Get all users',
-  })
-  getAll(): Promise<User[]> {
-    return this.usersService.getAll();
-  }
-
-  @Get(':id')
-  @ApiOperation({
-    summary: 'Get user by id',
-  })
-  getById(@Param('id') id: string): Promise<User> {
-    return this.usersService.getById(id);
-  }
-
   @Post()
   @ApiOperation({
     summary: 'Create a new user',
@@ -42,12 +26,20 @@ export class UsersController {
     return this.usersService.create(dto);
   }
 
-  @Delete()
+  @Get()
   @ApiOperation({
-    summary: 'Delete user',
+    summary: 'Get all users',
   })
-  delete(@Param('id') id: string) {
-    return this.usersService.delete(id);
+  findAll(): Promise<User[]> {
+    return this.usersService.findAll();
+  }
+
+  @Get(':id')
+  @ApiOperation({
+    summary: 'Get user by id',
+  })
+  findOne(@Param('id') id: string): Promise<User> {
+    return this.usersService.findOne(id);
   }
 
   @Patch(':id')
@@ -56,5 +48,13 @@ export class UsersController {
   })
   update(@Param('id') id: string, @Body() dto: UpdateUserDto): Promise<User> {
     return this.usersService.update(id, dto);
+  }
+
+  @Delete()
+  @ApiOperation({
+    summary: 'Delete user',
+  })
+  remove(@Param('id') id: string) {
+    return this.usersService.remove(id);
   }
 }
