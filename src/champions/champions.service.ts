@@ -8,8 +8,8 @@ import { UpdateChampionDto } from './dto/update-champion.dto';
 export class ChampionsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(dto: CreateChampionDto) {
-    return 'This action adds a new champion';
+  create(dto: CreateChampionDto): Promise<Champion> {
+    return this.prisma.champion.create({ data: dto });
   }
 
   findAll(): Promise<Champion[]> {

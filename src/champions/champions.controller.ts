@@ -22,7 +22,7 @@ export class ChampionsController {
   @ApiOperation({
     summary: 'Create a new champion',
   })
-  create(@Body() dto: CreateChampionDto) {
+  create(@Body() dto: CreateChampionDto): Promise<Champion> {
     return this.championsService.create(dto);
   }
 
