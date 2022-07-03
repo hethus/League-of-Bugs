@@ -25,6 +25,6 @@ export class ChampionsService {
   }
 
   remove(id: string) {
-    return `This action removes a #${id} champion`;
+    return this.prisma.champion.delete({ where: { id } });
   }
 }
