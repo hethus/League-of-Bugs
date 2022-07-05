@@ -2,7 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsBoolean,
   IsEmail,
-  IsInt,
   IsString,
   Length,
   Matches,
@@ -40,13 +39,14 @@ export class CreateUserDto {
   })
   password: string;
 
-  @IsInt()
-  @Length(11)
+  @IsString()
+  @MinLength(11)
+  @MaxLength(11)
   @ApiProperty({
     description: 'User CPF (only numbers)',
-    example: 12345678901,
+    example: '12345678901',
   })
-  cpf: number;
+  cpf: string;
 
   @IsBoolean()
   @ApiProperty({
