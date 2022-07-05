@@ -3,6 +3,8 @@ export class User {
   name: string;
   email: string;
   password: string;
-  created_At: Date;
-  updated_At: Date;
+  cpf: string;
+  isAdmin: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }

@@ -1,28 +1,75 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entity/users.entity';
-import { uuid } from 'uuidv4';
+import { PrismaService } from 'src/prisma/prisma.service';
+import * as bcrypt from 'bcryptjs';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
-  users: User[] = [];
+  constructor(private readonly prisma: PrismaService) {}
 
-  getAll(): User[] {
-    return this.users;
-  }
+  async create(dto: CreateUserDto): Promise<User | void> {
+    const hashedPassword = await bcrypt.hash(dto.password, 8);
 
-  create(createUserDto: CreateUserDto): User {
-    const newUser: User = {
-      id: uuid(),
-      name: createUserDto.name,
-      email: createUserDto.email,
-      password: createUserDto.password,
-      created_At: new Date(),
-      updated_At: new Date(),
+    const data: CreateUserDto = {
+      name: dto.name,
+      email: dto.email,
+      password: hashedPassword,
+      cpf: dto.cpf,
+      isAdmin: dto.isAdmin,
     };
 
-    this.users.push(newUser);
+    return this.prisma.user
+      .create({ data })
+      .catch(this.handleErrorConstraintUnique);
+  }
 
-    return newUser;
+  findAll(): Promise<User[]> {
+    return this.prisma.user.findMany();
+  }
+
+  async verifyIdAndReturnUser(id: string): Promise<User> {
+    const user: User = await this.prisma.user.findUnique({ where: { id } });
+
+    if (!user) {
+      throw new NotFoundException(`id '${id}' not found`);
+    }
+    return user;
+  }
+
+  handleErrorConstraintUnique(error: Error): never {
+    const splittedMessage = error.message.split('`');
+
+    const errorMessage = `Input '${
+      splittedMessage[splittedMessage.length - 2]
+    }' is not respecting the UNIQUE constraint`;
+
+    throw new UnprocessableEntityException(errorMessage);
+  }
+
+  async update(id: string, dto: UpdateUserDto): Promise<User | void> {
+    await this.verifyIdAndReturnUser(id);
+
+    return this.prisma.user
+      .update({ where: { id }, data: dto })
+      .catch(this.handleErrorConstraintUnique);
+  }
+
+  async remove(id: string) {
+    await this.verifyIdAndReturnUser(id);
+
+    return this.prisma.user.delete({
+      where: { id },
+      select: { name: true, email: true },
+    });
+  }
+
+  findOne(id: string): Promise<User> {
+    return this.verifyIdAndReturnUser(id);
   }
 }
