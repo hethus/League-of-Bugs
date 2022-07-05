@@ -5,7 +5,6 @@ import {
   IsPositive,
   IsString,
   IsUrl,
-  MinLength,
 } from 'class-validator';
 
 export class CreateChampionDto {
@@ -19,7 +18,6 @@ export class CreateChampionDto {
 
   @IsInt()
   @IsNotEmpty()
-  @MinLength(3)
   @IsPositive()
   @ApiProperty({
     description: 'The price of the champion',

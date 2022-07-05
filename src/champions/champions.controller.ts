@@ -13,7 +13,7 @@ import { CreateChampionDto } from './dto/create-champion.dto';
 import { UpdateChampionDto } from './dto/update-champion.dto';
 import { Champion } from './entities/champion.entity';
 
-@ApiTags('Champions')
+@ApiTags('champions')
 @Controller('champions')
 export class ChampionsController {
   constructor(private readonly championsService: ChampionsService) {}
