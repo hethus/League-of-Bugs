@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsNotEmpty, IsString, IsUrl, MinLength } from 'class-validator';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsPositive,
+  IsString,
+  IsUrl,
+  MinLength,
+} from 'class-validator';
 
 export class CreateChampionDto {
   @IsString()
@@ -13,6 +20,7 @@ export class CreateChampionDto {
   @IsInt()
   @IsNotEmpty()
   @MinLength(3)
+  @IsPositive()
   @ApiProperty({
     description: 'The price of the champion',
     example: 4800,
