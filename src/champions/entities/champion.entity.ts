@@ -9,4 +9,5 @@ export class Champion {
   youTubeUrl: string;
   createdAt: Date;
   updatedAt: Date;
+  classeId: string;
 }

@@ -5,6 +5,7 @@ import {
   IsPositive,
   IsString,
   IsUrl,
+  IsUUID,
 } from 'class-validator';
 
 export class CreateChampionDto {
@@ -65,4 +66,11 @@ export class CreateChampionDto {
       'https://www.youtube.com/watch?v=soQ9bukwAPs&ab_channel=LeagueofLegendsBR',
   })
   youTubeUrl: string;
+
+  @IsUUID()
+  @ApiProperty({
+    description: 'The classe of the champion',
+    example: 'id da classe (adicionar depois)',
+  })
+  classeId: string;
 }
