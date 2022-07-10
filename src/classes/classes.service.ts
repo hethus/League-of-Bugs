@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Classe } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateClassDto } from './dto/create-class.dto';
@@ -19,17 +19,30 @@ export class ClassesService {
     return this.prisma.classe.findMany();
   }
 
+  async verifyIdAndReturnClasse(id: string): Promise<Classe> {
+    const classe: Classe = await this.prisma.user.findUnique({ where: { id } });
+
+    if (!classe) {
+      throw new NotFoundException(`id '${id}' not found`);
+    }
+    return classe;
+  }
+
   findOne(id: string): Promise<Classe> {
-    return this.prisma.classe.findUnique({ where: { id } });
+    return this.verifyIdAndReturnClasse(id);
   }
 
   async update(id: string, dto: UpdateClassDto): Promise<Classe> {
+    await this.verifyIdAndReturnClasse(id);
+
     return this.prisma.classe
       .update({ where: { id }, data: dto })
       .catch(handleErrorConstraintUnique);
   }
 
-  remove(id: string) {
+  async remove(id: string) {
+    await this.verifyIdAndReturnClasse(id);
+
     return this.prisma.classe.delete({ where: { id }, select: { name: true } });
   }
 }
