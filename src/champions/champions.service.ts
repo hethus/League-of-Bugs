@@ -1,12 +1,9 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Champion } from './entities/champion.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateChampionDto } from './dto/create-champion.dto';
 import { UpdateChampionDto } from './dto/update-champion.dto';
+import { handleErrorConstraintUnique } from 'src/utils/handle-error-unique.util';
 
 @Injectable()
 export class ChampionsService {
@@ -15,7 +12,7 @@ export class ChampionsService {
   async create(dto: CreateChampionDto): Promise<Champion | void> {
     return this.prisma.champion
       .create({ data: dto })
-      .catch(this.handleErrorConstraintUnique);
+      .catch(handleErrorConstraintUnique);
   }
 
   findAll(): Promise<Champion[]> {
@@ -33,16 +30,6 @@ export class ChampionsService {
     return champion;
   }
 
-  handleErrorConstraintUnique(error: Error): never {
-    const splittedMessage = error.message.split('`');
-
-    const errorMessage = `Input '${
-      splittedMessage[splittedMessage.length - 2]
-    }' is not respecting the UNIQUE constraint`;
-
-    throw new UnprocessableEntityException(errorMessage);
-  }
-
   findOne(id: string): Promise<Champion> {
     return this.verifyIdAndReturnUser(id);
   }
@@ -52,7 +39,7 @@ export class ChampionsService {
 
     return this.prisma.champion
       .update({ where: { id }, data: dto })
-      .catch(this.handleErrorConstraintUnique);
+      .catch(handleErrorConstraintUnique);
   }
 
   async remove(id: string) {
