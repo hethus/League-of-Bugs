@@ -30,7 +30,7 @@ export class CreateChampionDto {
   @IsNotEmpty()
   @ApiProperty({
     description: 'The title of the champion',
-    example: 'the Darkin Blade',
+    example: 'The Darkin Blade',
   })
   title: string;
 
@@ -55,13 +55,13 @@ export class CreateChampionDto {
   @IsNotEmpty()
   @ApiProperty({
     description: 'The difficulty of the champion',
-    example: 'medium',
+    example: 'Medium',
   })
   difficulty: string;
 
   @IsUrl()
   @ApiProperty({
-    description: 'the URL of some video about the champion',
+    description: 'The URL of some video about the champion',
     example:
       'https://www.youtube.com/watch?v=soQ9bukwAPs&ab_channel=LeagueofLegendsBR',
   })
@@ -70,7 +70,7 @@ export class CreateChampionDto {
   @IsUUID()
   @ApiProperty({
     description: 'The classe of the champion',
-    example: 'id da classe (adicionar depois)',
+    example: 'a71a24b0-8a40-4b76-b895-0fb5f722abe6',
   })
   classeId: string;
 }
