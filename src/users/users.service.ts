@@ -71,4 +71,13 @@ export class UsersService {
   findOne(id: string): Promise<User> {
     return this.verifyIdAndReturnUser(id);
   }
+
+  async findFavoriteChampions(id: string) {
+    await this.verifyIdAndReturnUser(id);
+
+    return this.prisma.favorite.findMany({
+      where: { userId: id },
+      select: { championName: true },
+    });
+  }
 }

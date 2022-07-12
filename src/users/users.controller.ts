@@ -12,6 +12,7 @@ import { UsersService } from './users.service';
 import { User } from './entity/users.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Favorite } from 'src/favorites/entities/favorite.entity';
 
 @ApiTags('users')
 @Controller('users')
@@ -40,6 +41,14 @@ export class UsersController {
   })
   findOne(@Param('id') id: string): Promise<User> {
     return this.usersService.findOne(id);
+  }
+
+  @Get(':id/favorites')
+  @ApiOperation({
+    summary: 'Get user favorites',
+  })
+  findFavoriteChampions(@Param('id') id: string): Promise<Favorite[]> {
+    return this.usersService.findFavoriteChampions(id);
   }
 
   @Patch(':id')
