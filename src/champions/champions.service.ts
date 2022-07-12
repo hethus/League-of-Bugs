@@ -80,4 +80,22 @@ export class ChampionsService {
       where: { id },
     });
   }
+
+  async findUsersLiked(id: string) {
+    const champ: Champion = await this.prisma.champion.findUnique({
+      where: { id },
+    });
+
+    if (!champ) {
+      throw new NotFoundException(`Champion id '${id}' not found`);
+    }
+
+    return this.prisma.favorite.findMany({
+      where: { championName: champ.name },
+      select: {
+        championName: true,
+        user: { select: { id: true, name: true, email: true } },
+      },
+    });
+  }
 }

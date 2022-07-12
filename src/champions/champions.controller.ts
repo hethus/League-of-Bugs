@@ -43,6 +43,14 @@ export class ChampionsController {
     return this.championsService.findOne(id);
   }
 
+  @Get(':id/users-liked')
+  @ApiOperation({
+    summary: 'Get a list of users that favorited this champion',
+  })
+  findUsersLiked(@Param('id') id: string) {
+    return this.championsService.findUsersLiked(id);
+  }
+
   @Patch(':id')
   @ApiOperation({
     summary: 'Update champion',
