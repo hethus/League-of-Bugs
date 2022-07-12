@@ -7,6 +7,7 @@ import { handleErrorConstraintUnique } from 'src/utils/handle-error-unique.util'
 import { FavoriteChampionDto } from '../favorites/dto/favorite.dto';
 import { User } from 'src/users/entity/users.entity';
 import { Favorite } from 'src/favorites/entities/favorite.entity';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ChampionsService {
@@ -80,7 +81,20 @@ export class ChampionsService {
 
     //criar verificação se a pessoa não tem o champ comprado, se n tiver, n pode favoritar
 
-    return this.prisma.favorite.create({ data: dto });
+    const data: Prisma.FavoriteCreateInput = {
+      user: {
+        connect: {
+          id: dto.userId,
+        },
+      },
+      champion: {
+        connect: {
+          name: dto.championName,
+        },
+      },
+    };
+
+    return this.prisma.favorite.create({ data });
   }
 
   async unfav(id: string) {

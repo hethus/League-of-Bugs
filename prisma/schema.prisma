@@ -34,10 +34,10 @@ model Champion {
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
-  classe Classe @relation(fields: [classeId], references: [id])
-  classeId String @map("classe_id")
+  classe      Classe? @relation(fields: [classeId], references: [id], onDelete: SetNull)
+  classeId    String? @map("classe_id")
 
-  favorites Favorite[]
+  favorites   Favorite[]
 
   @@map("champion")
 }
@@ -58,10 +58,10 @@ model Favorite {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String   @map("user_id")
 
-  champion Champion @relation(fields: [championName], references: [name])
+  champion Champion @relation(fields: [championName], references: [name], onDelete: Cascade)
   championName String   @map("champion_name")
 
   @@map("favorite")
