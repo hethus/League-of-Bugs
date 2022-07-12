@@ -52,6 +52,14 @@ export class ChampionsService {
   }
 
   async favorite(dto: FavoriteChampionDto): Promise<Favorite | void> {
+    const champ: Champion = await this.prisma.champion.findUnique({
+      where: { name: dto.championName },
+    });
+
+    if (!champ) {
+      throw new NotFoundException(`champion '${dto.championName}' not found`);
+    }
+
     const user: User = await this.prisma.user.findUnique({
       where: { id: dto.userId },
     });
@@ -75,20 +83,16 @@ export class ChampionsService {
     return this.prisma.favorite.create({ data: dto });
   }
 
-  unfav(id: string) {
+  async unfav(id: string) {
+    await this.verifyIdAndReturnUser(id);
+
     return this.prisma.favorite.delete({
       where: { id },
     });
   }
 
   async findUsersLiked(id: string) {
-    const champ: Champion = await this.prisma.champion.findUnique({
-      where: { id },
-    });
-
-    if (!champ) {
-      throw new NotFoundException(`Champion id '${id}' not found`);
-    }
+    const champ: Champion = await this.verifyIdAndReturnUser(id);
 
     return this.prisma.favorite.findMany({
       where: { championName: champ.name },
