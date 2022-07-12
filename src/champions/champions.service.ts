@@ -4,6 +4,9 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateChampionDto } from './dto/create-champion.dto';
 import { UpdateChampionDto } from './dto/update-champion.dto';
 import { handleErrorConstraintUnique } from 'src/utils/handle-error-unique.util';
+import { FavoriteChampionDto } from '../favorites/dto/favorite.dto';
+import { User } from 'src/users/entity/users.entity';
+import { Favorite } from 'src/favorites/entities/favorite.entity';
 
 @Injectable()
 export class ChampionsService {
@@ -46,5 +49,35 @@ export class ChampionsService {
     await this.verifyIdAndReturnUser(id);
 
     return this.prisma.champion.delete({ where: { id } });
+  }
+
+  async favorite(dto: FavoriteChampionDto): Promise<Favorite | void> {
+    const user: User = await this.prisma.user.findUnique({
+      where: { id: dto.userId },
+    });
+
+    if (!user) {
+      throw new NotFoundException(`user id '${dto.userId}' not found`);
+    }
+
+    const champion: Champion = await this.prisma.champion.findUnique({
+      where: { name: dto.championName },
+    });
+
+    if (!champion) {
+      throw new NotFoundException(
+        `champion name '${dto.championName}' not found`,
+      );
+    }
+
+    //criar verificação se a pessoa não tem o champ comprado, se n tiver, n pode favoritar
+
+    return this.prisma.favorite.create({ data: dto });
+  }
+
+  unfav(id: string) {
+    return this.prisma.favorite.delete({
+      where: { id },
+    });
   }
 }

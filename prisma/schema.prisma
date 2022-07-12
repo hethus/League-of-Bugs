@@ -17,6 +17,8 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  favorites Favorite[]
+
   @@map("user")
 }
 
@@ -35,6 +37,8 @@ model Champion {
   classe Classe @relation(fields: [classeId], references: [id])
   classeId String @map("classe_id")
 
+  favorites Favorite[]
+
   @@map("champion")
 }
 
@@ -47,4 +51,19 @@ model Classe {
   champion Champion[]
 
   @@map("classe")
+}
+
+model Favorite {
+  id         String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+  userId     String   @map("user_id")
+
+  champion Champion @relation(fields: [championName], references: [name])
+  championName String   @map("champion_name")
+
+  @@map("favorite")
+  @@unique([userId, championName])
 }
