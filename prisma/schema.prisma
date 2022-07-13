@@ -14,8 +14,15 @@ model User {
   password  String
   cpf       String   @unique
   isAdmin   Boolean  @default(false)
+  bugPoint Int      @default(0) // verificar purchasedBds e colocar nova quantidade aq
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  favorites Favorite[]
+
+  purchasedBPs PurchaseBP[]
+
+  purchasedChampions PurchaseChampion[]
 
   @@map("user")
 }
@@ -32,5 +39,82 @@ model Champion {
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
+  classe   Classe? @relation(fields: [classeId], references: [id], onDelete: SetNull)
+  classeId String? @map("classe_id")
+
+  favorites Favorite[]
+
+  purchasedChampions PurchaseChampion[]
+
   @@map("champion")
+}
+
+model Classe {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  champion Champion[]
+
+  @@map("classe")
+}
+
+model Favorite {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @map("user_id")
+
+  champion     Champion @relation(fields: [championName], references: [name], onDelete: Cascade, onUpdate: Cascade)
+  championName String   @map("champion_name")
+
+  @@unique([userId, championName])
+  @@map("favorite")
+}
+
+model BugPoint {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  price     Int      @unique
+
+  purchasedBPs PurchaseBP[]
+
+  @@map("bug_points")
+}
+
+model PurchaseBP {
+  id        String   @id @default(uuid())
+  priceBP   Int
+  quantity  Int // quantidade de vales que o usuario comprou, fazer logica para multiplicar isso pelo priceBP
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId String @map("user_id")
+
+  bugPoint   BugPoint @relation(fields: [bugPointId], references: [id], onDelete: SetNull)
+  bugPointId String    @map("bugs_points_id")
+
+  @@map("purchase_bp")
+}
+
+model PurchaseChampion {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @map("user_id")
+
+  champion     Champion @relation(fields: [championName], references: [name], onDelete: Cascade)
+  championName String   @map("champion_name")
+
+  @@map("purchase_champion")
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "../db.pdf"
 }

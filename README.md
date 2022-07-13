@@ -4,7 +4,7 @@
 
 League of Bugs (LoB) é um projeto desenvolvido para o modulo 4 da Blue com base no jogo League of Legends!
 
-Ainda em desenvolvimento (segunda semana).
+Ainda em desenvolvimento (terceira semana).
 
 ### Como fazer o clone do projeto:
 
@@ -17,6 +17,16 @@ $ git clone https://github.com/hethus/League-of-Bugs.git
 ```bash
 $ npm install
 ```
+
+### Diagrama do banco de dados:
+
+```bash
+$ npx prisma db push
+$ npx prisma generate
+```
+
+Será criado um arquivo 'db.pdf' com todo o diagrama do banco de dados!
+
 
 ### Como executar o projeto:
 
