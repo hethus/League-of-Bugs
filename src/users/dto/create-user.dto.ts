@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsBoolean,
   IsEmail,
+  IsInt,
   IsString,
   Matches,
   MaxLength,
@@ -53,4 +54,11 @@ export class CreateUserDto {
     example: true,
   })
   isAdmin: boolean;
+
+  @IsInt()
+  @ApiProperty({
+    description: 'User BugPoints',
+    example: 0,
+  })
+  bugPoint: number;
 }

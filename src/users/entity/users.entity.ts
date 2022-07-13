@@ -7,6 +7,7 @@ export class User {
   password?: string;
   cpf: string;
   isAdmin: boolean;
+  bugPoint: number;
   createdAt: Date;
   updatedAt: Date;
   favorites?: Favorite[];

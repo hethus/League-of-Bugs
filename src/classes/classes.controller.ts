@@ -8,10 +8,10 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Classe } from '@prisma/client';
+import { Classe } from './entities/classe.entity';
 import { ClassesService } from './classes.service';
-import { CreateClassDto } from './dto/create-class.dto';
-import { UpdateClassDto } from './dto/update-class.dto';
+import { CreateClassDto } from './dto/create-classe.dto';
+import { UpdateClassDto } from './dto/update-classe.dto';
 
 @ApiTags('classes')
 @Controller('classes')

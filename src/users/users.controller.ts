@@ -43,6 +43,7 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
+  @ApiTags('favorites')
   @Get(':id/favorites')
   @ApiOperation({
     summary: 'Get user favorites',

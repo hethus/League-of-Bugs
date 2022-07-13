@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Classe } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateClassDto } from './dto/create-class.dto';
-import { UpdateClassDto } from './dto/update-class.dto';
+import { CreateClassDto } from './dto/create-classe.dto';
+import { UpdateClassDto } from './dto/update-classe.dto';
 import { handleErrorConstraintUnique } from 'src/utils/handle-error-unique.util';
+import { Classe } from './entities/classe.entity';
 
 @Injectable()
 export class ClassesService {

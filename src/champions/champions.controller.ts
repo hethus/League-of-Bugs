@@ -43,6 +43,7 @@ export class ChampionsController {
     return this.championsService.findOne(id);
   }
 
+  @ApiTags('favorites')
   @Get(':id/users-liked')
   @ApiOperation({
     summary: 'Get a list of users that favorited this champion',
@@ -70,6 +71,7 @@ export class ChampionsController {
     return this.championsService.remove(id);
   }
 
+  @ApiTags('favorites')
   @Post('favorite')
   @ApiOperation({
     summary: 'Favorite champion',
@@ -78,6 +80,7 @@ export class ChampionsController {
     return this.championsService.favorite(dto);
   }
 
+  @ApiTags('favorites')
   @Delete('favorite/:id')
   @ApiOperation({
     summary: 'disfavoring a champion',

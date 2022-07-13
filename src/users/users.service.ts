@@ -15,6 +15,7 @@ export class UsersService {
     email: true,
     cpf: true,
     isAdmin: true,
+    bugPoint: true,
     createdAt: true,
     updatedAt: true,
   };
@@ -29,6 +30,7 @@ export class UsersService {
       password: hashedPassword,
       cpf: dto.cpf,
       isAdmin: dto.isAdmin,
+      bugPoint: dto.bugPoint,
     };
 
     return this.prisma.user

@@ -1,4 +1,4 @@
-export class Class {
+export class Classe {
   id: string;
   name: string;
 }

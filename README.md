@@ -18,6 +18,16 @@ $ git clone https://github.com/hethus/League-of-Bugs.git
 $ npm install
 ```
 
+### Diagrama do banco de dados:
+
+```bash
+$ npx prisma db push
+$ npx prisma generate
+```
+
+Será criado um arquivo 'db.pdf' com todo o diagrama do banco de dados!
+
+
 ### Como executar o projeto:
 
 ```bash
