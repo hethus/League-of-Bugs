@@ -92,11 +92,11 @@ model PurchaseBP {
   quantity  Int // quantidade de vales que o usuario comprou, fazer logica para multiplicar isso pelo priceBP
   createdAt DateTime @default(now()) @map("created_at")
 
-  user   User   @relation(fields: [userId], references: [id], onDelete: SetNull)
-  userId String @map("user_id")
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId String? @map("user_id")
 
-  bugPoint   BugPoint @relation(fields: [bugPointId], references: [id], onDelete: SetNull)
-  bugPointId String    @map("bugs_points_id")
+  bugPoint   BugPoint? @relation(fields: [bugPointId], references: [id], onDelete: SetNull)
+  bugPointId String?    @map("bugs_points_id")
 
   @@map("purchase_bp")
 }
