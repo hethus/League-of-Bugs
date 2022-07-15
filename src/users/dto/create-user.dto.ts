@@ -3,6 +3,7 @@ import {
   IsBoolean,
   IsEmail,
   IsInt,
+  IsPositive,
   IsString,
   Matches,
   MaxLength,
@@ -56,6 +57,7 @@ export class CreateUserDto {
   isAdmin: boolean;
 
   @IsInt()
+  @IsPositive()
   @ApiProperty({
     description: 'User BugPoints',
     example: 0,
