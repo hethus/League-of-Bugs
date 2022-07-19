@@ -17,6 +17,7 @@ async function bootstrap() {
     .addTag('users')
     .addTag('champions')
     .addTag('classes')
+    .addTag('favorites')
     .setVersion('1.0.0')
     .build();
 

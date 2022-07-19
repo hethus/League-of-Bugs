@@ -19,7 +19,7 @@ export class ChampionsService {
     return this.prisma.champion.findMany();
   }
 
-  async verifyIdAndReturnUser(id: string): Promise<Champion> {
+  async verifyIdAndReturnChampion(id: string): Promise<Champion> {
     const champion: Champion = await this.prisma.champion.findUnique({
       where: { id },
     });
@@ -27,15 +27,16 @@ export class ChampionsService {
     if (!champion) {
       throw new NotFoundException(`id '${id}' not found`);
     }
+
     return champion;
   }
 
   findOne(id: string): Promise<Champion> {
-    return this.verifyIdAndReturnUser(id);
+    return this.verifyIdAndReturnChampion(id);
   }
 
   async update(id: string, dto: UpdateChampionDto): Promise<Champion | void> {
-    await this.verifyIdAndReturnUser(id);
+    await this.verifyIdAndReturnChampion(id);
 
     return this.prisma.champion
       .update({ where: { id }, data: dto })
@@ -43,7 +44,7 @@ export class ChampionsService {
   }
 
   async remove(id: string) {
-    await this.verifyIdAndReturnUser(id);
+    await this.verifyIdAndReturnChampion(id);
 
     return this.prisma.champion.delete({ where: { id } });
   }

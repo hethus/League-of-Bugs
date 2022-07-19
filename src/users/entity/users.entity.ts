@@ -1,3 +1,4 @@
+import { BugPoint } from '@prisma/client';
 import { Favorite } from 'src/favorites/entities/favorite.entity';
 
 export class User {
@@ -11,4 +12,5 @@ export class User {
   createdAt: Date;
   updatedAt: Date;
   favorites?: Favorite[];
+  purchasedBPs?: BugPoint[];
 }

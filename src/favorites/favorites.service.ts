@@ -9,7 +9,6 @@ import { Favorite } from './entities/favorite.entity';
 
 @Injectable()
 export class FavoritesService {
-  userSelect: any;
   constructor(private readonly prisma: PrismaService) {}
 
   async favoriteChampion(dto: FavoriteChampionDto): Promise<Favorite | void> {
