@@ -7,6 +7,7 @@ import { ClassesModule } from './classes/classes.module';
 import { FavoritesModule } from './favorites/favorites.module';
 import { BugpointsModule } from './bugpoints/bugpoints.module';
 import { PurchaseBpsModule } from './purchase-bps/purchase-bps.module';
+import { PurchaseChampionsModule } from './purchase-champions/purchase-champions.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { PurchaseBpsModule } from './purchase-bps/purchase-bps.module';
     FavoritesModule,
     BugpointsModule,
     PurchaseBpsModule,
+    PurchaseChampionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

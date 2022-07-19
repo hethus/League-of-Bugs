@@ -1,5 +1,6 @@
-import { BugPoint } from '@prisma/client';
 import { Favorite } from 'src/favorites/entities/favorite.entity';
+import { PurchaseBp } from 'src/purchase-bps/entities/purchase-bugpoints.entity';
+import { PurchaseChampion } from 'src/purchase-champions/entities/purchase-champions.entity';
 
 export class User {
   id: string;
@@ -12,5 +13,6 @@ export class User {
   createdAt: Date;
   updatedAt: Date;
   favorites?: Favorite[];
-  purchasedBPs?: BugPoint[];
+  purchasedBPs?: PurchaseBp[];
+  purchasedChampions?: PurchaseChampion[];
 }

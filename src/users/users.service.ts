@@ -42,6 +42,8 @@ export class UsersService {
       select: {
         ...this.userSelect,
         favorites: true,
+        purchasedBPs: true,
+        purchasedChampions: true,
       },
     });
   }
@@ -52,6 +54,8 @@ export class UsersService {
       select: {
         ...this.userSelect,
         favorites: true,
+        purchasedBPs: true,
+        purchasedChampions: true,
       },
     });
 

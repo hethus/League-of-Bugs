@@ -68,7 +68,7 @@ export class PurchaseBpsService {
     }
   }
 
-  async getUserPurchases(id: string): Promise<PurchaseBp[]> {
+  async getUserPurchasesBp(id: string): Promise<PurchaseBp[]> {
     await this.verifyId(id);
 
     return this.prisma.purchaseBP.findMany({

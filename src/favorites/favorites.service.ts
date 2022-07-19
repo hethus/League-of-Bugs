@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotAcceptableException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { Champion } from 'src/champions/entities/champion.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -25,8 +29,6 @@ export class FavoritesService {
       },
     };
 
-    await this.verifyId(dto.userId);
-
     const champion: Champion = await this.prisma.champion.findUnique({
       where: { name: dto.championName },
     });
@@ -37,7 +39,35 @@ export class FavoritesService {
       );
     }
 
-    //criar verificação se a pessoa não tem o champ comprado, se n tiver, n pode favoritar
+    const user: User = await this.prisma.user.findUnique({
+      where: { id: dto.userId },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        cpf: true,
+        isAdmin: true,
+        bugPoint: true,
+        createdAt: true,
+        updatedAt: true,
+        favorites: true,
+        purchasedChampions: true,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException(`User id '${dto.userId}' not found`);
+    }
+
+    const listVerify = user.purchasedChampions.findIndex(
+      (item) => item.championName == dto.championName,
+    );
+
+    if (listVerify == -1 || listVerify == undefined) {
+      throw new NotAcceptableException(
+        `You can't favorite champions that you haven't purchased`,
+      );
+    }
 
     return this.prisma.favorite
       .create({ data })
@@ -50,7 +80,7 @@ export class FavoritesService {
     });
 
     if (!favorite) {
-      throw new NotFoundException(`id '${id}' not found`);
+      throw new NotFoundException(`Favorite id '${id}' not found`);
     }
 
     return this.prisma.favorite.delete({ where: { id } });

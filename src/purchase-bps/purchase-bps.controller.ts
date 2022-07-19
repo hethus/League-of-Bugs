@@ -21,8 +21,8 @@ export class PurchaseBpsController {
   @ApiOperation({
     summary: 'Get all purchases for a user',
   })
-  getUserPurchases(@Param('id') id: string): Promise<PurchaseBp[]> {
-    return this.purchaseBpsService.getUserPurchases(id);
+  getUserPurchasesBp(@Param('id') id: string): Promise<PurchaseBp[]> {
+    return this.purchaseBpsService.getUserPurchasesBp(id);
   }
 
   @Get('adm/:id')

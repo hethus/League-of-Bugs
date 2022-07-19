@@ -101,7 +101,7 @@ model PurchaseBP {
 
 model PurchaseChampion {
   id        String   @id @default(uuid())
-  createdAt DateTime @default(now()) @map("created_at")
+  purchasedAt DateTime @default(now()) @map("purchased_at")
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @map("user_id")
@@ -109,6 +109,7 @@ model PurchaseChampion {
   champion     Champion @relation(fields: [championName], references: [name], onDelete: Cascade)
   championName String   @map("champion_name")
 
+  @@unique([userId, championName])
   @@map("purchase_champion")
 }
 
