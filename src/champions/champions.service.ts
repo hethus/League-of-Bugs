@@ -25,7 +25,7 @@ export class ChampionsService {
     });
 
     if (!champion) {
-      throw new NotFoundException(`id '${id}' not found`);
+      throw new NotFoundException(`Champion id '${id}' not found`);
     }
 
     return champion;

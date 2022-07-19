@@ -14,7 +14,7 @@ model User {
   password  String
   cpf       String   @unique
   isAdmin   Boolean  @default(false)
-  bugPoint Int      @default(0) // verificar purchasedBds e colocar nova quantidade aq
+  bugPoint Int      @default(0)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -87,15 +87,14 @@ model BugPoint {
 
 model PurchaseBP {
   id        String   @id @default(uuid())
-  priceBP   Int
-  quantity  Int // quantidade de vales que o usuario comprou, fazer logica para multiplicar isso pelo priceBP
-  createdAt DateTime @default(now()) @map("created_at")
+  quantity  Int
+  purchasedAt DateTime @default(now()) @map("purchased_at")
 
-  user   User   @relation(fields: [userId], references: [id], onDelete: SetNull)
-  userId String @map("user_id")
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId String? @map("user_id")
 
-  bugPoint   BugPoint @relation(fields: [bugPointId], references: [id], onDelete: SetNull)
-  bugPointId String    @map("bugs_points_id")
+  bugPoint   BugPoint @relation(fields: [bugPointPrice], references: [price])
+  bugPointPrice Int    @map("bugs_points_id")
 
   @@map("purchase_bp")
 }

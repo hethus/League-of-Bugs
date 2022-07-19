@@ -33,7 +33,7 @@ export class BugpointsService {
     });
 
     if (!bugpoint) {
-      throw new NotFoundException(`id '${id}' not found`);
+      throw new NotFoundException(`Bugpoint id '${id}' not found`);
     }
 
     return bugpoint;
