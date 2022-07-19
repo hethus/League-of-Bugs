@@ -5,7 +5,6 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcryptjs';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { handleErrorConstraintUnique } from 'src/utils/handle-error-unique.util';
-import { Favorite } from 'src/favorites/entities/favorite.entity';
 
 @Injectable()
 export class UsersService {
@@ -81,13 +80,5 @@ export class UsersService {
 
   findOne(id: string): Promise<User> {
     return this.verifyIdAndReturnUser(id);
-  }
-
-  async findFavoriteChampions(id: string): Promise<Favorite[]> {
-    await this.verifyIdAndReturnUser(id);
-
-    return this.prisma.favorite.findMany({
-      where: { userId: id },
-    });
   }
 }

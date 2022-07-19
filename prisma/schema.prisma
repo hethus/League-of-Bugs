@@ -62,8 +62,7 @@ model Classe {
 
 model Favorite {
   id        String   @id @default(uuid())
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  favoritedAt DateTime @default(now()) @map("favorited_at")
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @map("user_id")

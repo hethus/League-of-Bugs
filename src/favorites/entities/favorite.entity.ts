@@ -1,7 +1,6 @@
 export class Favorite {
   id?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  favoriteAt?: Date;
   userId?: string;
   championName: string;
 }
