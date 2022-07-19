@@ -18,6 +18,11 @@ async function bootstrap() {
     .addTag('champions')
     .addTag('classes')
     .addTag('favorites')
+    .addTag('bugpoints')
+    .addTag('purchase bugpoints')
+    .addTag('purchase champions')
+    .addTag('auth')
+    .addBearerAuth()
     .setVersion('1.0.0')
     .build();
 

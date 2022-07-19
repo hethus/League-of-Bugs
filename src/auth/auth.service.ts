@@ -1,4 +1,46 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { User } from 'src/users/entity/users.entity';
+import { LoginDto } from './dto/login.dto';
+import * as bcrypt from 'bcryptjs';
+import { LoginResponseDto } from './dto/login-response.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
-export class AuthService {}
+export class AuthService {
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+  ) {}
+
+  async login(dto: LoginDto): Promise<LoginResponseDto> {
+    const { email, password } = dto;
+
+    const user: User = await this.prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      throw new NotFoundException('Invalid email or password');
+    }
+
+    const passwordMatch: boolean = await bcrypt.compare(
+      password,
+      user.password,
+    );
+
+    if (!passwordMatch) {
+      throw new NotFoundException('Invalid email or password');
+    }
+
+    delete user.password;
+
+    delete user.cpf;
+
+    const isAdmin = user.isAdmin;
+
+    const token = this.jwtService.sign({ email, isAdmin });
+
+    return { token, user };
+  }
+}
