@@ -50,4 +50,4 @@ ou para acessar a documentação:
   localhost:8000/docs
 ```
 
-OBS: rotas com a tag (adm) precisam de autenticação de usuário com o privilegio de administrador.
+OBS: rotas com a tag (adm) precisam de autenticação de usuário com o privilegio de administrador. Próximas verificações serão adicionadas quando o front-end for implementado.
