@@ -38,7 +38,7 @@ Será criado um arquivo 'db.pdf' atualizado com todo o Diagrama de Relacionament
 
 ou
 
-<a href="./db.pdf" download>Você também pode analisar nosso Diagrama de Relacionamento de Entidades por aqui clicando aqui</a>.
+<a href="./db.pdf" download>Você também pode analisar nosso Diagrama de Relacionamento de Entidades clicando aqui</a>.
 
 
 ### Como executar o projeto:
