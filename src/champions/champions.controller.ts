@@ -6,15 +6,18 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ChampionsService } from './champions.service';
 import { CreateChampionDto } from './dto/create-champion.dto';
-import { FavoriteChampionDto } from '../favorites/dto/favorite.dto';
 import { UpdateChampionDto } from './dto/update-champion.dto';
 import { Champion } from './entities/champion.entity';
+import { AuthGuard } from '@nestjs/passport';
 
-@ApiTags('champions')
+@UseGuards(AuthGuard())
+@ApiTags('champions (adm)')
+@ApiBearerAuth()
 @Controller('champions')
 export class ChampionsController {
   constructor(private readonly championsService: ChampionsService) {}
@@ -43,15 +46,6 @@ export class ChampionsController {
     return this.championsService.findOne(id);
   }
 
-  @ApiTags('favorites')
-  @Get(':id/users-liked')
-  @ApiOperation({
-    summary: 'Get a list of users that favorited this champion',
-  })
-  findUsersLiked(@Param('id') id: string) {
-    return this.championsService.findUsersLiked(id);
-  }
-
   @Patch(':id')
   @ApiOperation({
     summary: 'Update champion',
@@ -69,23 +63,5 @@ export class ChampionsController {
   })
   remove(@Param('id') id: string) {
     return this.championsService.remove(id);
-  }
-
-  @ApiTags('favorites')
-  @Post('favorite')
-  @ApiOperation({
-    summary: 'Favorite champion',
-  })
-  favorite(@Body() dto: FavoriteChampionDto) {
-    return this.championsService.favorite(dto);
-  }
-
-  @ApiTags('favorites')
-  @Delete('favorite/:id')
-  @ApiOperation({
-    summary: 'disfavoring a champion',
-  })
-  unfav(@Param('id') id: string) {
-    return this.championsService.unfav(id);
   }
 }

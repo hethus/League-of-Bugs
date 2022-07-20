@@ -1,10 +1,15 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    cors: true,
+  });
+
+  app.set('trust proxy', 1);
 
   app.useGlobalPipes(new ValidationPipe());
 
@@ -14,15 +19,21 @@ async function bootstrap() {
       'League of Bugs (LoB) é um projeto desenvolvido para o modulo 4 da Blue com base no jogo League of Legends!',
     )
     .addTag('status')
+    .addTag('auth')
     .addTag('users')
-    .addTag('champions')
-    .addTag('classes')
+    .addTag('favorites')
+    .addTag('purchase bugpoints')
+    .addTag('purchase champions')
+    .addTag('champions (adm)')
+    .addTag('classes (adm)')
+    .addTag('bugpoints (adm)')
+    .addBearerAuth()
     .setVersion('1.0.0')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
-  await app.listen(8000);
+  await app.listen(process.env.PORT || 8000);
 }
 bootstrap();

@@ -1,6 +1,6 @@
-export class Favorite {
+export class PurchaseChampion {
   id?: string;
-  favoriteAt?: Date;
+  purchasedAt?: Date;
   userId?: string;
   championName: string;
 }

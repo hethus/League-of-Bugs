@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
+import { PurchaseBpsService } from './purchase-bps.service';
+import { PurchaseBpsController } from './purchase-bps.controller';
 import { PrismaModule } from 'src/prisma/prisma.module';
-import { UsersController } from './users.controller';
-import { UsersService } from './users.service';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from 'src/auth/jwt.strategy';
 
 @Module({
   imports: [PrismaModule, PassportModule.register({ defaultStrategy: 'jwt' })],
-  controllers: [UsersController],
-  providers: [UsersService, JwtStrategy],
+  controllers: [PurchaseBpsController],
+  providers: [PurchaseBpsService, JwtStrategy],
 })
-export class UsersModule {}
+export class PurchaseBpsModule {}
