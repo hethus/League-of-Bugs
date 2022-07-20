@@ -27,7 +27,7 @@ export class ChampionsService {
       });
 
     if (champions.length === 0) {
-      throw new NotFoundException('No champions found with this query');
+      throw new NotFoundException('No champions found');
     }
 
     return champions;
