@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ChampionsService } from './champions.service';
@@ -16,7 +17,7 @@ import { Champion } from './entities/champion.entity';
 import { AuthGuard } from '@nestjs/passport';
 
 @UseGuards(AuthGuard())
-@ApiTags('champions (adm)')
+@ApiTags('champions')
 @ApiBearerAuth()
 @Controller('champions')
 export class ChampionsController {
@@ -34,8 +35,8 @@ export class ChampionsController {
   @ApiOperation({
     summary: 'Find all champions',
   })
-  findAll(): Promise<Champion[]> {
-    return this.championsService.findAll();
+  findAll(@Query() query): Promise<Champion[]> {
+    return this.championsService.findAll(query);
   }
 
   @Get(':id')

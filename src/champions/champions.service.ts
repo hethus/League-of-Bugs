@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { Champion } from './entities/champion.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateChampionDto } from './dto/create-champion.dto';
@@ -15,8 +19,18 @@ export class ChampionsService {
       .catch(handleErrorConstraintUnique);
   }
 
-  findAll(): Promise<Champion[]> {
-    return this.prisma.champion.findMany();
+  async findAll(query: Partial<Champion>): Promise<Champion[]> {
+    const champions: Champion[] = await this.prisma.champion
+      .findMany({ where: query })
+      .catch(() => {
+        throw new UnprocessableEntityException('Invalid query');
+      });
+
+    if (champions.length === 0) {
+      throw new NotFoundException('No champions found with this query');
+    }
+
+    return champions;
   }
 
   async verifyIdAndReturnChampion(id: string): Promise<Champion> {

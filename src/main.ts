@@ -24,7 +24,7 @@ async function bootstrap() {
     .addTag('favorites')
     .addTag('purchase bugpoints')
     .addTag('purchase champions')
-    .addTag('champions (adm)')
+    .addTag('champions')
     .addTag('classes (adm)')
     .addTag('bugpoints (adm)')
     .addBearerAuth()
