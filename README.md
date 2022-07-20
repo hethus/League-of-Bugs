@@ -4,7 +4,7 @@
 
 League of Bugs (LoB) é um projeto desenvolvido para o modulo 4 da Blue com base no jogo League of Legends!
 
-Ainda em desenvolvimento (terceira semana).
+Ainda em desenvolvimento (quarta semana).
 
 ### Como fazer o clone do projeto:
 
@@ -49,3 +49,5 @@ ou para acessar a documentação:
 ```bash
   localhost:8000/docs
 ```
+
+OBS: rotas com a tag (adm) precisam de autenticação de usuário com o privilegio de administrador.
