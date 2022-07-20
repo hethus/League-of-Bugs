@@ -7,13 +7,17 @@ import {
   HttpStatus,
   Param,
   Post,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { PurchaseChampionDto } from './dto/purchase-champions.dto';
 import { PurchaseChampion } from './entities/purchase-champions.entity';
 import { PurchaseChampionsService } from './purchase-champions.service';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard())
 @ApiTags('purchase champions')
+@ApiBearerAuth()
 @Controller('purchase/champions')
 export class PurchaseChampionsController {
   constructor(

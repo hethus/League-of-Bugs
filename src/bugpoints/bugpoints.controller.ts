@@ -6,14 +6,18 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { BugpointsService } from './bugpoints.service';
 import { CreateBugpointDto } from './dto/create-bugpoint.dto';
 import { UpdateBugpointDto } from './dto/update-bugpoint.dto';
 import { Bugpoint } from './entities/bugpoint.entity';
+import { AuthGuard } from '@nestjs/passport';
 
-@ApiTags('bugpoints')
+@UseGuards(AuthGuard())
+@ApiTags('bugpoints (adm)')
+@ApiBearerAuth()
 @Controller('bugpoints')
 export class BugpointsController {
   constructor(private readonly bugpointsService: BugpointsService) {}

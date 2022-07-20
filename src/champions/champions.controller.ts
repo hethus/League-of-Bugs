@@ -6,14 +6,18 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ChampionsService } from './champions.service';
 import { CreateChampionDto } from './dto/create-champion.dto';
 import { UpdateChampionDto } from './dto/update-champion.dto';
 import { Champion } from './entities/champion.entity';
+import { AuthGuard } from '@nestjs/passport';
 
-@ApiTags('champions')
+@UseGuards(AuthGuard())
+@ApiTags('champions (adm)')
+@ApiBearerAuth()
 @Controller('champions')
 export class ChampionsController {
   constructor(private readonly championsService: ChampionsService) {}

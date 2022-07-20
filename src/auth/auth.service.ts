@@ -37,9 +37,7 @@ export class AuthService {
 
     delete user.cpf;
 
-    const isAdmin = user.isAdmin;
-
-    const token = this.jwtService.sign({ email, isAdmin });
+    const token = this.jwtService.sign({ email });
 
     return { token, user };
   }

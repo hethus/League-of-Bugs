@@ -6,14 +6,18 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Classe } from './entities/classe.entity';
 import { ClassesService } from './classes.service';
 import { CreateClassDto } from './dto/create-classe.dto';
 import { UpdateClassDto } from './dto/update-classe.dto';
+import { AuthGuard } from '@nestjs/passport';
 
-@ApiTags('classes')
+@UseGuards(AuthGuard())
+@ApiTags('classes (adm)')
+@ApiBearerAuth()
 @Controller('classes')
 export class ClassesController {
   constructor(private readonly classesService: ClassesService) {}
