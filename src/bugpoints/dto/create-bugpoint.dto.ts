@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsNotEmpty } from 'class-validator';
+import { IsInt, IsNotEmpty, IsUrl } from 'class-validator';
 
 export class CreateBugpointDto {
   @IsNotEmpty()
@@ -9,4 +9,11 @@ export class CreateBugpointDto {
     example: 4800,
   })
   price: number;
+
+  @IsUrl()
+  @ApiProperty({
+    description: 'The image url of the bugpoint',
+    example: 'https://www.example.com/image.png',
+  })
+  imageUrl: string;
 }
