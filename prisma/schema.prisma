@@ -76,7 +76,7 @@ model Favorite {
 
 model BugPoint {
   id        String   @id @default(uuid())
-  price     Int      @unique
+  value     Int      @unique
   imageUrl  String
   money     Float
   createdAt DateTime @default(now()) @map("created_at")
@@ -95,8 +95,8 @@ model PurchaseBP {
   user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
   userId String? @map("user_id")
 
-  bugPoint   BugPoint @relation(fields: [bugPointPrice], references: [price])
-  bugPointPrice Int    @map("bugs_points_id")
+  bugPoint   BugPoint @relation(fields: [bugPointValue], references: [value])
+  bugPointValue Int    @map("bugs_point_value_id")
 
   @@map("purchase_bp")
 }

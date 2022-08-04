@@ -12,10 +12,10 @@ export class PurchaseBpsDto {
   @IsInt()
   @IsNotEmpty()
   @ApiProperty({
-    description: 'The price of the bugpoints to purchase',
+    description: 'The amount of the bugpoints to purchase',
     example: 4800,
   })
-  bugPointPrice: number;
+  bugPointValue: number;
 
   @IsInt()
   @IsNotEmpty()

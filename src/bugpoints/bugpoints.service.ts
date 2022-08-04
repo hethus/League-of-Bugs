@@ -14,8 +14,8 @@ export class BugpointsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateBugpointDto): Promise<Bugpoint | void> {
-    if (dto.price <= 0 || Number.isInteger(!dto.price)) {
-      throw new NotAcceptableException('price must be a positive integer');
+    if (dto.value <= 0 || Number.isInteger(!dto.value)) {
+      throw new NotAcceptableException('value must be a positive integer');
     }
 
     if (dto.money <= 0 || Number.isInteger(!dto.money)) {
@@ -50,8 +50,8 @@ export class BugpointsService {
   async update(id: string, dto: UpdateBugpointDto): Promise<Bugpoint | void> {
     await this.verifyIdAndReturnBugpoint(id);
 
-    if (dto.price <= 0 || Number.isInteger(!dto.price)) {
-      throw new NotAcceptableException('price must be a positive integer');
+    if (dto.value <= 0 || Number.isInteger(!dto.value)) {
+      throw new NotAcceptableException('value must be a positive integer');
     }
 
     if (dto.money <= 0 || Number.isInteger(!dto.money)) {

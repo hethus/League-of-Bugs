@@ -8,7 +8,7 @@ export class CreateBugpointDto {
     description: 'The amount of the bugpoint',
     example: 4800,
   })
-  price: number;
+  value: number;
 
   @IsUrl()
   @ApiProperty({

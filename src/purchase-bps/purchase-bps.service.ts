@@ -20,7 +20,7 @@ export class PurchaseBpsService {
       },
       bugPoint: {
         connect: {
-          price: dto.bugPointPrice,
+          value: dto.bugPointValue,
         },
       },
       quantity: dto.quantity,
@@ -35,16 +35,16 @@ export class PurchaseBpsService {
     }
 
     const bugPoint = await this.prisma.bugPoint.findUnique({
-      where: { price: dto.bugPointPrice },
+      where: { value: dto.bugPointValue },
     });
 
     if (!bugPoint) {
       throw new NotFoundException(
-        `Bugpoint of '${dto.bugPointPrice}' not found`,
+        `Bugpoint of '${dto.bugPointValue}' not found`,
       );
     }
 
-    const userBuyed = dto.quantity * bugPoint.price + user.bugPoint;
+    const userBuyed = dto.quantity * bugPoint.value + user.bugPoint;
 
     await this.prisma.user.update({
       where: { id: dto.userId },
