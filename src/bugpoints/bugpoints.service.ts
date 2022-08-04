@@ -18,6 +18,10 @@ export class BugpointsService {
       throw new NotAcceptableException('price must be a positive integer');
     }
 
+    if (dto.money <= 0 || Number.isInteger(!dto.money)) {
+      throw new NotAcceptableException('money must be a positive integer');
+    }
+
     return this.prisma.bugPoint
       .create({ data: dto })
       .catch(handleErrorConstraintUnique);
@@ -45,6 +49,14 @@ export class BugpointsService {
 
   async update(id: string, dto: UpdateBugpointDto): Promise<Bugpoint | void> {
     await this.verifyIdAndReturnBugpoint(id);
+
+    if (dto.price <= 0 || Number.isInteger(!dto.price)) {
+      throw new NotAcceptableException('price must be a positive integer');
+    }
+
+    if (dto.money <= 0 || Number.isInteger(!dto.money)) {
+      throw new NotAcceptableException('money must be a positive integer');
+    }
 
     return this.prisma.bugPoint
       .update({ where: { id }, data: dto })
