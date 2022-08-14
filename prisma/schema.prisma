@@ -95,8 +95,8 @@ model PurchaseBP {
   user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
   userId String? @map("user_id")
 
-  bugPoint   BugPoint @relation(fields: [bugPointValue], references: [value])
-  bugPointValue Int    @map("bugs_point_value_id")
+  bugPoint   BugPoint? @relation(fields: [bugPointValue], references: [value], onDelete: Cascade, onUpdate: Cascade)
+  bugPointValue Int?    @map("bugs_point_value_id")
 
   @@map("purchase_bp")
 }

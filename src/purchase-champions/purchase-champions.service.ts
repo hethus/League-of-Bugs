@@ -72,6 +72,12 @@ export class PurchaseChampionsService {
 
     const price = user.bugPoint - champion.price;
 
+    if (price < 0) {
+      throw new NotAcceptableException(
+        `You don't have enough bug points to purchase this champion`,
+      );
+    }
+
     await this.prisma.user.update({
       where: { id: dto.userId },
       data: {
