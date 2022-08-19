@@ -20,7 +20,9 @@ export class ClassesService {
   }
 
   async verifyIdAndReturnClasse(id: string): Promise<Classe> {
-    const classe: Classe = await this.prisma.user.findUnique({ where: { id } });
+    const classe: Classe = await this.prisma.classe.findUnique({
+      where: { id },
+    });
 
     if (!classe) {
       throw new NotFoundException(`Classe id '${id}' not found`);
