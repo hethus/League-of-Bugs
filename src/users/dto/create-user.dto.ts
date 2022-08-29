@@ -64,6 +64,5 @@ export class CreateUserDto {
     description: 'User BugPoints',
     example: 0,
   })
-  @IsOptional()
   bugPoint: number;
 }
