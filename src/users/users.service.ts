@@ -32,6 +32,10 @@ export class UsersService {
       bugPoint: dto.bugPoint,
     };
 
+    if (data.bugPoint === null || data.bugPoint === undefined) {
+      data.bugPoint = 0;
+    }
+
     return this.prisma.user
       .create({ data, select: this.userSelect })
       .catch(handleErrorConstraintUnique);

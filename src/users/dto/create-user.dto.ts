@@ -3,6 +3,7 @@ import {
   IsBoolean,
   IsEmail,
   IsInt,
+  IsOptional,
   IsString,
   Matches,
   MaxLength,
@@ -63,5 +64,6 @@ export class CreateUserDto {
     description: 'User BugPoints',
     example: 0,
   })
+  @IsOptional()
   bugPoint: number;
 }
